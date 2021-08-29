@@ -85,7 +85,8 @@ const UpdateStudentInfo = () => {
                         <h1 className="section-header text-center fw-bolder text-primary">Update Student</h1>
                         <div class="col-md-12">
                             <label className="fw-bold my-2">Upload Image</label>
-                            <input type="file" class="form-control border-0" onChange={handleImageUpload} onBlur={handleImage} defaultValue={studentInfo.image} id="inputEmail4" placeholder="Upload your photo"/>
+                            <input type="file" class="form-control border-0" onChange={handleImageUpload} onBlur={handleImage} defaultValue={studentInfo.image} id="inputEmail4" placeholder="Upload your photo" />
+                            <small className="text-warning">*Just wait few sec to upload the image</small>
                             <div className="p-2">
                                 <img src={studentInfo.image} alt="student_img" className="student_image" />
                             </div>
@@ -94,16 +95,21 @@ const UpdateStudentInfo = () => {
                             <label className="fw-bold my-2">Name</label>
                             <input type="text" name="name" class="form-control border-0"
                                 defaultValue={studentInfo.name} id="name" onBlur={handleName} pattern="^[a-zA-Z]*$" placeholder="Enter Name" required />
+                            <small className="text-warning">*only text</small>
                         </div>
-                        <div class="col-md-12">
-                            <label className="fw-bold my-2">Id</label>
-                            <input type="text" name="studentId" class="form-control border-0"
-                                defaultValue={studentInfo.id} onBlur={handleId} id="inputEmail4" placeholder="Enter ID" min={0} pattern="[0-9]*" inputMode="numeric" required />
-                        </div>
-                        <div class="col-md-12">
-                        <label className="fw-bold my-2">Registration No.</label>
-                            <input type="text" name="reg"
-                                defaultValue={studentInfo.reg} onBlur={handleReg} min={0} pattern="^[0-9a-zA-Z]*$" class="form-control border-0" id="inputEmail4" placeholder="Enter Registration" required />
+                        <div className="row">
+                            <div class="col-md-6">
+                                <label className="fw-bold my-2">Id</label>
+                                <input type="number" name="studentId" class="form-control border-0"
+                                    defaultValue={studentInfo.id} onBlur={handleId} id="inputEmail4" placeholder="Enter ID" min={0} pattern="[0-9]*" inputMode="numeric" required />
+                                <small className="text-warning">*Only number</small>
+                            </div>
+                            <div class="col-md-6">
+                                <label className="fw-bold my-2">Registration No.</label>
+                                <input type="text" name="reg"
+                                    defaultValue={studentInfo.reg} onBlur={handleReg} min={0} pattern="^[0-9a-zA-Z]*$" class="form-control border-0" id="inputEmail4" placeholder="Enter Registration" required />
+                                <small className="text-warning">*Only text and number allow here</small>
+                            </div>
                         </div>
                         <div class="col-md-12">
                             <button type="submit" onClick={() => handleStudentClick(studentInfo._id)} class="contact-btn">Update Now</button>
