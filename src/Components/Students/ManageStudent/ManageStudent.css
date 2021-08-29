@@ -1,0 +1,24 @@
+.update-button{
+    width: 80px;
+    height: 40px;
+    background-color: rgb(85, 190, 173)!important;
+    color: black !important;
+}
+
+.update-button:hover{
+    background-color: rgb(75, 70, 146)!important;
+    color: white!important;
+}
+
+.delete-button{
+    width: 80px;
+    height: 40px;
+    background-color: rgb(190, 85, 111)!important;
+    color: rgb(255, 254, 254) !important;
+}
+
+.delete-button:hover{
+    background-color: rgb(179, 111, 35)!important;
+    color: rgb(0, 0, 0)!important;
+}
+

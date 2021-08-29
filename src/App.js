@@ -1,24 +1,42 @@
-import logo from './logo.svg';
 import './App.css';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
+import ManageStudent from './Components/Students/ManageStudent/ManageStudent';
+import NotFound from './Components/Students/NotFound/NotFound';
+import Navbar from './Components/Shared/Navbar/Navbar';
+import AddStudent from './Components/Students/AddStudent/AddStudent';
+import UpdateStudentInfo from './Components/Students/UpdateStudentInfo/UpdateStudentInfo';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Navbar/>
+      <Switch>
+        <Route exact path="/">
+          <ManageStudent/>
+        </Route>
+
+        <Route path="/manageStudent">
+          <ManageStudent/>
+        </Route>
+
+        <Route path="/addStudent">
+          <AddStudent/>
+        </Route>
+
+        <Route path="/updateStudent/:id">
+          <UpdateStudentInfo/>
+        </Route>
+
+        <Route exact path="*">
+          <NotFound/>
+        </Route>
+
+      </Switch>
+    </Router>
   );
 }
 

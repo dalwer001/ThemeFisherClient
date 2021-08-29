@@ -1,0 +1,50 @@
+.form-select {
+    height: 56px !important;
+    border-top-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    border-bottom-left-radius: 22px !important;
+    border-top-right-radius: 22px !important;
+    padding: 10px 20px !important;
+    background: #fff;
+    border: 1px solid transparent;
+    transition: all .3s ease-in-out;
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15)!important;
+}
+
+.form-select:hover{
+    box-shadow:none !important;
+    border: 1px solid #F01F75 !important;
+}
+
+.contact-btn {
+    height: 56px !important;
+    background: linear-gradient(to right, rgba(149, 25, 81, 0.822) 14%, rgba(255, 103, 15, 0.767) 55%, rgba(238, 164, 45, 0.835) 100%);
+    border-top-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    border-bottom-left-radius: 22px !important;
+    border-top-right-radius: 22px !important;
+    padding: 10px 20px !important;
+    width: 100%;
+    color: #ffff;
+    font-weight: bold;
+    border: 1px solid transparent;
+    transition: all .3s ease-in-out;
+}
+
+.contact-btn:hover {
+    border-radius: 22px 0px 22px 0px !important;
+}
+
+.contact-form {
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgb(31 66 135 / 30%);
+}
+
+.form-control {
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15)!important;
+}
+
+.form-control:focus{
+    box-shadow:none !important;
+    border: 1px solid #F01F75 !important;
+}
