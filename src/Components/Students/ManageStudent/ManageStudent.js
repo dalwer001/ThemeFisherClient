@@ -11,6 +11,9 @@ import { useState } from "react";
 import axios from 'axios';
 import "./ManageStudent.css";
 import { Form, FormControl } from 'react-bootstrap';
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
+
 
 
 const StyledTableCell = withStyles((theme) => ({
@@ -47,25 +50,24 @@ const ManageStudent = () => {
 
     useEffect(() => {
         const studentData = async () => {
-            const res = await axios.get("http://localhost:5000/students")
+            const res = await axios.get("https://sheltered-meadow-35142.herokuapp.com/students")
             setStudents(res.data);
         }
         studentData();
     }, []);
 
-
-    const handleDelete = (id) => {
-        const res = axios.delete(`http://localhost:5000/deleteStudent/${id}`);
+    const handleDelete = async(id) => {
+        const res = await axios.delete(`https://sheltered-meadow-35142.herokuapp.com/deleteStudent/${id}`);
         if (res) {
             reload();
             alert("Student deleted successfully");
         }
     }
 
-    const reload =  () => {
-        const load = async () =>{
-            const res = await axios.get(`http://localhost:5000/students`);
-        setStudents(res.data);
+    const reload = () => {
+        const load = async () => {
+            const res = await axios.get(`https://sheltered-meadow-35142.herokuapp.com/students`);
+            setStudents(res.data);
         }
         load();
     }
@@ -73,73 +75,58 @@ const ManageStudent = () => {
     const handleUpdate = (id) => {
         history.push(`/updateStudent/${id}`);
     }
-    // const [sortConfig, setSortConfig] = React.useState(null);
-
-    // const sortedItems = React.useMemo(() => {
-    //     let sortableItems = [...students];
-    //     if (sortConfig !== null) {
-    //         sortableItems.sort((a, b) => {
-    //             if (a[sortConfig.key] < b[sortConfig.key]) {
-    //                 return sortConfig.direction === 'ascending' ? -1 : 1;
-    //             }
-    //             if (a[sortConfig.key] > b[sortConfig.key]) {
-    //                 return sortConfig.direction === 'ascending' ? 1 : -1;
-    //             }
-    //             return 0;
-    //         });
-    //     }
-    //     return sortableItems;
-    // }, [students, sortConfig]);
-
-    // const requestSort = (key) => {
-    //     let direction = 'ascending';
-    //     if (
-    //         sortConfig &&
-    //         sortConfig.key === key &&
-    //         sortConfig.direction === 'ascending'
-    //     ) {
-    //         direction = 'descending';
-    //     }
-    //     setSortConfig({ key, direction });
-    // };
 
 
-    const [order, setOrder] = useState("ASC");
-    const sorting = (col) => {
-        if (order === "ASC") {
+    const [nameOrder, setNameOrder] = useState("ASC");
+    const sortName = (col) => {
+        if (nameOrder === "ASC") {
             const sort = [...students].sort((a, b) =>
                 a[col].toLowerCase() > b[col].toLowerCase() ? 1 : -1
             );
             setStudents(sort);
-            setOrder("DSC");
+            setNameOrder("DSC");
         }
-        if (order === "DSC") {
+        if (nameOrder === "DSC") {
             const sort = [...students].sort((a, b) =>
                 a[col].toLowerCase() < b[col].toLowerCase() ? 1 : -1
             );
             setStudents(sort);
-            setOrder("ASC");
+            setNameOrder("ASC");
         }
     };
 
-    // const [order, setOrder] = useState(true);
-    // const handleSort= (col) => {
-    //     if (order === "ASC") {
-    //         let sort = [...students].sort((a, b) =>
-    //             a[col] > b[col]
-    //         );
-    //         setStudents(sort);
-    //         setOrder("DSC");
-    //     }
-    //     if(order === "DSC")
-    //     {
-    //         let sort = [...students].sort((a, b) =>
-    //             b[col] < a[col]
-    //         );
-    //         setStudents(sort);
-    //         setOrder("ASC");
-    //     }
-    // };
+    const [idOrder, setIdorder] = useState("ASC");
+    const sortId = () => {
+        if (idOrder === "ASC") {
+            const sort = [...students].sort((a, b) =>
+                (a === b ? 0 : a < b ? -1 : 1) * (a > b ? 1 : -1));
+            setStudents(sort);
+            setIdorder("DSC");
+        }
+        if (idOrder === "DSC") {
+            const sort = [...students].sort((a, b) =>
+                (a === b ? 0 : a > b ? -1 : 1) * (a < b ? 1 : -1));
+            setStudents(sort);
+            setIdorder("ASC");
+        }
+    }
+
+    const [regOrder, setRegorder] = useState("ASC");
+    const sortReg = () => {
+        if (regOrder === "ASC") {
+            const sort = [...students].sort((a, b) =>
+                (a === b ? 0 : a < b ? -1 : 1) * (a > b ? 1 : -1));
+            setStudents(sort);
+            setRegorder("DSC");
+        }
+        if (regOrder === "DSC") {
+            const sort = [...students].sort((a, b) =>
+                (a === b ? 0 : a > b ? -1 : 1) * (a < b ? 1 : -1));
+            setStudents(sort);
+            setRegorder("ASC");
+        }
+    }
+
 
 
     return (
@@ -162,10 +149,10 @@ const ManageStudent = () => {
                     <Table className={classes.table} aria-label="customized table" className="shadow">
                         <TableHead style={{ backgroundColor: "#0B4C61" }}>
                             <TableRow>
-                                <StyledTableCell align="center" onClick={() => sorting('id')}>Id</StyledTableCell>
-                                <StyledTableCell align="center" onClick={() => sorting('reg')}>Registration</StyledTableCell>
+                                <StyledTableCell align="center" onClick={() => sortId('id')}>Id {idOrder === 'DSC' ? <ArrowUpwardIcon className="text-white" /> : <ArrowDownwardIcon className="text-white" />} </StyledTableCell>
+                                <StyledTableCell align="center" onClick={() => sortReg('reg')}>Registration {regOrder === 'DSC' ? <ArrowUpwardIcon className="text-white" /> : <ArrowDownwardIcon className="text-white" />} </StyledTableCell>
                                 <StyledTableCell align="center">Image</StyledTableCell>
-                                <StyledTableCell align="center" onClick={() => sorting('name')}>Name</StyledTableCell>
+                                <StyledTableCell align="center" onClick={() => sortName('name')}>Name {nameOrder === 'DSC' ? <ArrowUpwardIcon className="text-white" /> : <ArrowDownwardIcon className="text-white" />} </StyledTableCell>
 
                                 <StyledTableCell align="center">Action</StyledTableCell>
                             </TableRow>

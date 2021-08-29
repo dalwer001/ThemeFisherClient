@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import './UpdateStudentInfo.css';
 
 const UpdateStudentInfo = () => {
@@ -14,10 +14,12 @@ const UpdateStudentInfo = () => {
     const [image, setImage] = useState('');
 
     const { id } = useParams();
+    const history = useHistory();
+
 
     useEffect(() => {
         const loadData = async () => {
-            const res = await axios.get(`http://localhost:5000/updateStudent/${id}`)
+            const res = await axios.get(`https://sheltered-meadow-35142.herokuapp.com/updateStudent/${id}`)
             setStudentInfo(res.data);
         }
         loadData();
@@ -44,13 +46,12 @@ const UpdateStudentInfo = () => {
             reg: reg || studentInfo.reg,
             studentId: studentId || studentInfo.id,
             image: imageURL || studentInfo.image
-
         };
-        console.log(updateStudent);
-        const res = await axios.patch(`http://localhost:5000/updateStudentInfo/${id}`, updateStudent)
+        const res = await axios.patch(`https://sheltered-meadow-35142.herokuapp.com/updateStudentInfo/${id}`, updateStudent)
         if (res) {
             setDataStatus(res);
             alert("Student information Updated");
+            history.push("/manageStudent");
         }
     };
     const handleImageUpload = async (e) => {
@@ -84,7 +85,7 @@ const UpdateStudentInfo = () => {
                         <h1 className="section-header text-center fw-bolder text-primary">Update Student</h1>
                         <div class="col-md-12">
                             <label className="fw-bold my-2">Upload Image</label>
-                            <input type="file" class="form-control border-0" onChange={handleImageUpload} onBlur={handleImage} defaultValue={studentInfo.image} id="inputEmail4" placeholder="Upload your photo" />
+                            <input type="file" class="form-control border-0" onChange={handleImageUpload} onBlur={handleImage} defaultValue={studentInfo.image} id="inputEmail4" placeholder="Upload your photo"/>
                             <div className="p-2">
                                 <img src={studentInfo.image} alt="student_img" className="student_image" />
                             </div>
@@ -92,17 +93,17 @@ const UpdateStudentInfo = () => {
                         <div class="col-12">
                             <label className="fw-bold my-2">Name</label>
                             <input type="text" name="name" class="form-control border-0"
-                                defaultValue={studentInfo.name} id="name" onBlur={handleName} placeholder="Enter Name" required />
+                                defaultValue={studentInfo.name} id="name" onBlur={handleName} pattern="^[a-zA-Z]*$" placeholder="Enter Name" required />
                         </div>
                         <div class="col-md-12">
                             <label className="fw-bold my-2">Id</label>
                             <input type="text" name="studentId" class="form-control border-0"
-                                defaultValue={studentInfo.id} onBlur={handleId} id="inputEmail4" placeholder="Enter ID" required />
+                                defaultValue={studentInfo.id} onBlur={handleId} id="inputEmail4" placeholder="Enter ID" min={0} pattern="[0-9]*" inputMode="numeric" required />
                         </div>
                         <div class="col-md-12">
                         <label className="fw-bold my-2">Registration No.</label>
                             <input type="text" name="reg"
-                                defaultValue={studentInfo.reg} onBlur={handleReg} class="form-control border-0" id="inputEmail4" placeholder="Enter Reg" required />
+                                defaultValue={studentInfo.reg} onBlur={handleReg} min={0} pattern="^[0-9a-zA-Z]*$" class="form-control border-0" id="inputEmail4" placeholder="Enter Registration" required />
                         </div>
                         <div class="col-md-12">
                             <button type="submit" onClick={() => handleStudentClick(studentInfo._id)} class="contact-btn">Update Now</button>
