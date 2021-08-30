@@ -83,7 +83,6 @@ const AddStudent = () => {
                         </div>
                     </form>
                 </div>
-
             </div>
         </section>
     );
