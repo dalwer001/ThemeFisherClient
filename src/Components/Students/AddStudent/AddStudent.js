@@ -55,12 +55,6 @@ const AddStudent = () => {
                 <div className="col-sm-12 col-md-12 col-lg-12 m-5">
                     <form class="row g-3 p-5 contact-form" onSubmit={handleSubmit}>
                         <h1 className="section-header text-center fw-bolder text-primary">Add Student</h1>
-                        <div className="d-flex">
-                            <div className="short-underLine">
-                            </div>
-                            <div className="long-underLine">
-                            </div>
-                        </div>
                         <div class="col-md-12">
                             <label className="fw-bold my-2">Upload Image</label>
                             <input type="file" onChange={handleImageUpload} class="form-control border-0" id="inputEmail4" placeholder="Upload your photo" required />
